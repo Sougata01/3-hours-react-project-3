@@ -7,30 +7,23 @@ function App() {
 
   const [users, setUsers] = useState([])
   const [overallRatings, setOverallRatings] = useState([0, 0, 0, 0, 0])
+  const [editedUser, setEditedUser] = useState(null)
+  const [isEditing, setIsEditing] = useState(false)
 
   const addUserHandler = (uname, urating) => {
-    setOverallRatings((prevOverallRatings) => {
-          if (urating == 1) {
-            prevOverallRatings[0]++
-          }
-          else if (urating == 2) {
-            prevOverallRatings[1]++
-          }
-          else if (urating == 3) {
-            prevOverallRatings[2]++
-          }
-          else if (urating == 4) {
-            prevOverallRatings[3]++
-          }
-          else {
-            prevOverallRatings[4]++
-          }
-      return prevOverallRatings
-    })
-    console.log(urating)
     setUsers((prevUsers) => {
       return [...prevUsers, { name: uname, rating: urating, id: Math.random().toString() }]
     })
+  }
+
+  const updateUserHandler = (uname, urating, id) => {
+    setUsers((prevUsers) => {
+      return prevUsers.map((user) => {
+        return (user.id === id ? { name: uname, rating: urating, id: id } : user)
+      })
+    })
+    setIsEditing(false)
+    setEditedUser(null)
   }
 
   const deleteHandler = (index) => {
@@ -39,29 +32,36 @@ function App() {
         return prevUsers.indexOf(prevUser) !== index
       })
     })
-    setOverallRatings((prevOverallRatings) => {
-      if (users[index].rating == 1) {
-        prevOverallRatings[0]--
-      }
-      else if (users[index].rating  == 2) {
-        prevOverallRatings[1]--
-      }
-      else if (users[index].rating  == 3) {
-        prevOverallRatings[2]--
-      }
-      else if (users[index].rating  == 4) {
-        prevOverallRatings[3]--
-      }
-      else {
-        prevOverallRatings[4]--
-      }
-  return prevOverallRatings
-})
   }
 
   const editHandler = (index) => {
-
+    setEditedUser(users[index])
+    setIsEditing(true)
   }
+
+  useEffect(() => {
+    setOverallRatings(() => {
+      const newOverAllRatings = [0, 0, 0, 0, 0]
+      users.forEach((user) => {
+        if (user.rating === "1") {
+          newOverAllRatings[0]++
+        }
+        else if (user.rating === "2") {
+          newOverAllRatings[1]++
+        }
+        else if (user.rating === "3") {
+          newOverAllRatings[2]++
+        }
+        else if (user.rating === "4") {
+          newOverAllRatings[3]++
+        }
+        else {
+          newOverAllRatings[4]++
+        }
+      })
+      return newOverAllRatings
+    })
+  }, [users])
 
   return (
     <React.Fragment>
@@ -75,7 +75,7 @@ function App() {
       <br></br>
       <br></br>
       <h2>Feedback Form</h2>
-      <UserInput onAddUser={addUserHandler} />
+      <UserInput onAddUser={addUserHandler} onUpdateUser={updateUserHandler} editedUser={editedUser} isEditing={isEditing} />
       <br></br>
       <br></br>
       <h2>All Feedbacks</h2>
