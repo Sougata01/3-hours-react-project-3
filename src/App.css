@@ -46,3 +46,7 @@ p {
     transform: rotate(360deg);
   }
 }
+
+.student-body {
+  text-align: center;
+}
