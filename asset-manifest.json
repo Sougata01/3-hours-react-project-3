@@ -1,0 +1,13 @@
+{
+  "files": {
+    "main.css": "/3-hours-react-project-3/static/css/main.6025189a.css",
+    "main.js": "/3-hours-react-project-3/static/js/main.e6650e2a.js",
+    "index.html": "/3-hours-react-project-3/index.html",
+    "main.6025189a.css.map": "/3-hours-react-project-3/static/css/main.6025189a.css.map",
+    "main.e6650e2a.js.map": "/3-hours-react-project-3/static/js/main.e6650e2a.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.6025189a.css",
+    "static/js/main.e6650e2a.js"
+  ]
+}
