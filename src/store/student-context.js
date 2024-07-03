@@ -2,9 +2,12 @@ import React from "react";
 
 const StudentContext = React.createContext({
     students: [],
-    addStudent: (item) => {},
-    editStudent: (id) => {},
-    removeStudent: (id) => {}
+    addStudent: (student) => {},
+    removeStudent: (id) => {},
+    editedStudent: null,
+    editStudent: (student) => {},
+    updateStudent: (student) => {},
+    resetEditedStudent: () => {}
 })
 
 export default StudentContext;

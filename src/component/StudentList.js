@@ -1,21 +1,25 @@
 import React, { useContext } from "react";
 import StudentContext from "../store/student-context";
 
-const StudentList = porps => {
+const StudentList = props => {
     const studentCtx = useContext(StudentContext)
 
-    const cartItemRemoveHandler = (id) => {
+    const studentRemoveHandler = (id) => {
+        studentCtx.removeStudent(id)
     }
-    const cartItemEditHandler = (id) => {
+    
+    const studentEditHandler = (student) => {
+        studentCtx.editStudent(student)
+        props.onFormShow()
     }
-
+// console.log(studentCtx)
     return (
         < ul >
-            {studentCtx.students.map((item) => (
-                <li key={item.id}>
-                    {item.name} {item.mobile} {item.address} 
-                    <button onClick={cartItemRemoveHandler.bind(null, item.id)}>Delete</button>
-                    <button onClick={cartItemEditHandler.bind(null, item.id)}>Edit</button>
+            {studentCtx.students.map((student) => (
+                <li key={student.id}>
+                    {student.name} {student.mobile} {student.address} 
+                    <button onClick={studentRemoveHandler.bind(null, student.id)}>Delete</button>
+                    <button onClick={studentEditHandler.bind(null, student)}>Edit</button>
                 </li>)
             )}
         </ul >
